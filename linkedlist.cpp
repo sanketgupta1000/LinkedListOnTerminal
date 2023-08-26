@@ -85,7 +85,7 @@ public:
         //if adding at start
         if(index==0)
         {
-            (newnode->next) = (head->next);
+            (newnode->next) = (head);
             head = newnode;
         }
         else
