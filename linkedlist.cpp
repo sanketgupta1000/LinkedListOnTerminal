@@ -21,22 +21,21 @@ private:
     //data members for linked list
     Node * head;
     int size;
-    Node * tail;
 
 public:
     //constructor for linked list
-    LinkedList():head(nullptr), tail(nullptr), size(0){}
+    LinkedList():head(nullptr), size(0){}
 
     //method for adding a node at the last
     void addNode(const T & ele)
     {
         //creating new node
-        Node * newnode  = new Node(ele);
+        Node * newnode = new Node(ele);
 
         //checking if adding first node
         if(size==0)
         {
-            head = tail = newnode;
+            head = newnode;
         }
         else
         {
@@ -63,30 +62,53 @@ public:
             throw ListException("Invalid Index");
         }
 
-        //checking if adding at last
-        if(index==size)
+        //creating a new node
+        Node * newnode = new Node(ele);
+
+        //traversing to a node after which to insert
+        Node * ptr = head;
+        for(int i = 0; i<(index-1); i++)
         {
-            addNode(ele);
+            ptr = (ptr->next);
+        }
+
+        (newnode->next) = (ptr->next);
+        (ptr->next) = newnode;
+        size++;
+    }
+
+    //method to delete a node at a specific index
+    void deleteNode(int index)
+    {
+        //validating index
+        if((index<0)||(index>=size))
+        {
+            throw ListException("Invalid Index");
+        }
+
+        //checking if deleting first node
+        if(index==0)
+        {
+            Node * newhead = (head->next);
+            delete head;
+            head = newhead;
         }
         else
         {
-            //creating a new node
-            Node * newnode = new Node(ele);
-
-            //traversing to a node after which to insert
+            //traversing to a node before the node to be deleted
             Node * ptr = head;
             for(int i = 0; i<(index-1); i++)
             {
                 ptr = (ptr->next);
             }
 
-            (newnode->next) = (ptr->next);
-            (ptr->next) = newnode;
-            size++;
-        }
-    }
+            Node * to_be_del = (ptr->next);
 
-    
+            (ptr->next) = (to_be_del->next);
+            delete to_be_del;
+        }
+        size--;
+    }
 };
 
 
