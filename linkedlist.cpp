@@ -136,6 +136,7 @@ public:
         while(ptr!=nullptr)
         {
             cout<<(ptr->data)<<" --> ";
+            ptr = (ptr->next);
         }
         cout<<"null"<<endl;
     }
@@ -189,28 +190,33 @@ public:
                 case 4:
                 {
                     printList();
+                    break;
                 }
                 case 5:
                 {
                     exit(0);
+                    break;
                 }
                 default:
                 {
                     throw ListException("Invalid option");
+                    break;
                 }
             }
-            catch(const exception & e)
-            {
-                cout<<e.what()<<endl;
-            }
-            showMenu();
         }
+        catch(const exception & e)
+        {
+            cout<<e.what()<<endl;
+        }
+        showMenu();
     }
 };
 
 
 int main()
 {
-    
+    //driver code
+    LinkedList<int> li;
+    li.showMenu();
     return 0;
 }
