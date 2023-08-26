@@ -109,11 +109,24 @@ public:
         }
         size--;
     }
+
+    //method to print the linked list
+    void printList()
+    {
+        cout<<"head --> ";
+
+        Node * ptr = head;
+        while(ptr!=nullptr)
+        {
+            cout<<(ptr->data)<<" --> ";
+        }
+        cout<<"null"<<endl;
+    }
 };
 
 
 int main()
 {
-
+    
     return 0;
 }
