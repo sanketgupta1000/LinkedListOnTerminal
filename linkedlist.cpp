@@ -2,6 +2,23 @@
 #include<exception>
 using namespace std;
 
+//class for List Exceptions
+class ListException:public exception
+{
+private:
+    string err;
+
+public:
+    //constructor
+    ListException(string s):err(s){}
+
+    //redefining virtual method of parent
+    const char * what() const throw()
+    {
+        return err.c_str();
+    }
+};
+
 //will create a class for linked list
 
 template <typename T>
@@ -121,6 +138,73 @@ public:
             cout<<(ptr->data)<<" --> ";
         }
         cout<<"null"<<endl;
+    }
+
+    //method to show a menu on terminal
+    void showMenu()
+    {
+        cout<<"Menu for Linked List: \n"
+            <<"1. Add node at last\n"
+            <<"2. Add node at a specific index\n"
+            <<"3. Delete node from a specific index\n"
+            <<"4. Print Linked list\n"
+            <<"5. Exit\n";
+
+        cout<<"Enter an option: ";
+
+        int option;
+        cin>>option;
+
+        try
+        {
+            switch(option)
+            {
+                case 1:
+                {
+                    T val;
+                    cout<<"Enter value of the new node: ";
+                    cin>>val;
+                    addNode(val);
+                    break;
+                }
+                case 2:
+                {
+                    T val;
+                    int i;
+                    cout<<"Enter value of the new node: ";
+                    cin>>val;
+                    cout<<"Enter index: ";
+                    cin>>i;
+                    addNode(val, i);
+                    break;
+                }
+                case 3:
+                {
+                    int i;
+                    cout<<"Enter index from which to delete node: ";
+                    cin>>i;
+                    deleteNode(i);
+                    break;
+                }
+                case 4:
+                {
+                    printList();
+                }
+                case 5:
+                {
+                    exit(0);
+                }
+                default:
+                {
+                    throw ListException("Invalid option");
+                }
+            }
+            catch(const exception & e)
+            {
+                cout<<e.what()<<endl;
+            }
+            showMenu();
+        }
     }
 };
 
