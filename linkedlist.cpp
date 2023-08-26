@@ -15,7 +15,7 @@ private:
         Node * next;
 
         //constructor for node
-        Node(T d):data(d), next(nullptr){}
+        Node(const T & d):data(d), next(nullptr){}
     };
 
     //data members for linked list
@@ -27,8 +27,8 @@ public:
     //constructor for linked list
     LinkedList():head(nullptr), tail(nullptr), size(0){}
 
-    //method for adding a node
-    void addNode(T ele)
+    //method for adding a node at the last
+    void addNode(const T & ele)
     {
         //creating new node
         Node * newnode  = new Node(ele);
@@ -53,6 +53,40 @@ public:
 
         size++;
     }
+
+    //an overload to add element at any specified index
+    void addNode(T ele, int index)
+    {
+        //validating index
+        if((index<0) || (index>size))
+        {
+            throw ListException("Invalid Index");
+        }
+
+        //checking if adding at last
+        if(index==size)
+        {
+            addNode(ele);
+        }
+        else
+        {
+            //creating a new node
+            Node * newnode = new Node(ele);
+
+            //traversing to a node after which to insert
+            Node * ptr = head;
+            for(int i = 0; i<(index-1); i++)
+            {
+                ptr = (ptr->next);
+            }
+
+            (newnode->next) = (ptr->next);
+            (ptr->next) = newnode;
+            size++;
+        }
+    }
+
+    
 };
 
 
