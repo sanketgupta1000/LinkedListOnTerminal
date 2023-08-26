@@ -82,15 +82,24 @@ public:
         //creating a new node
         Node * newnode = new Node(ele);
 
-        //traversing to a node after which to insert
-        Node * ptr = head;
-        for(int i = 0; i<(index-1); i++)
+        //if adding at start
+        if(index==0)
         {
-            ptr = (ptr->next);
+            (newnode->next) = (head->next);
+            head = newnode;
         }
+        else
+        {
+            //traversing to a node after which to insert
+            Node * ptr = head;
+            for(int i = 0; i<(index-1); i++)
+            {
+                ptr = (ptr->next);
+            }
 
-        (newnode->next) = (ptr->next);
-        (ptr->next) = newnode;
+            (newnode->next) = (ptr->next);
+            (ptr->next) = newnode;
+        }
         size++;
     }
 
@@ -194,6 +203,8 @@ public:
                 }
                 case 5:
                 {
+                    //deleting list
+                    while(size) deleteNode(0);
                     exit(0);
                     break;
                 }
